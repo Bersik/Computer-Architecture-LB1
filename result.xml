@@ -1,0 +1,41 @@
+<products count="13">
+  <product name="Toshiba Satellite L50-B-1XL (PSKTCE-04D00CU3) White" price_max="31121" price_min="31121">
+    <price site="rozetka.com.ua">31121</price>
+  </product>
+  <product name="Toshiba Satellite C55-A-1T0 (PSCGNE-00U00XU3) Precious Black" price_max="23741" price_min="23741">
+    <price site="rozetka.com.ua">23741</price>
+  </product>
+  <product name="Toshiba Satellite C50-A-1JV (PSCJGE-00400NU3) Black" price_max="11871" price_min="11871">
+    <price site="rozetka.com.ua">11871</price>
+  </product>
+  <product name="Toshiba Satellite C55-A-19K (PSCG8E-03N012U3) White Pearl" price_max="14759" price_min="14759">
+    <price site="rozetka.com.ua">14759</price>
+  </product>
+  <product name="Toshiba Satellite C50-A-L6K (PSCGAR-03F00RRU) Black" price_max="18870" price_min="18870">
+    <price site="rozetka.com.ua">18870</price>
+  </product>
+  <product name="Toshiba Satellite C50-A-1L0 (PSCJGE-00H00NU3) Black" price_max="10620" price_min="10620">
+    <price site="rozetka.com.ua">10620</price>
+  </product>
+  <product name="Toshiba Satellite C50-A-L3W (PSCGAR-02Y00RRU) White" price_max="19040" price_min="19040">
+    <price site="rozetka.com.ua">19040</price>
+  </product>
+  <product name="Toshiba Satellite C50-A-L8S (PSCGAR-04F00RRU) Silver" price_max="18700" price_min="18700">
+    <price site="rozetka.com.ua">18700</price>
+  </product>
+  <product name="Toshiba Satellite L50-B-1TQ (PSKTAE-0DQ00RU3) Black" price_max="33046" price_min="33046">
+    <price site="rozetka.com.ua">33046</price>
+  </product>
+  <product name="Toshiba Satellite L50-B-1M9 (PSKTCE-02X00CU3) White" price_max="24544" price_min="24544">
+    <price site="rozetka.com.ua">24544</price>
+  </product>
+  <product name="Toshiba Satellite C55-A-19N (PSCGCE-019010U3) Precious Black" price_max="18448" price_min="18448">
+    <price site="rozetka.com.ua">18448</price>
+  </product>
+  <product name="Toshiba Satellite C50-A-1JX (PSCJEE-007015U3) Black" price_max="14116" price_min="14116">
+    <price site="rozetka.com.ua">14116</price>
+  </product>
+  <product name="Toshiba Satellite C55-A-1TG (PSCJEE-01F015U3) White Pearl" price_max="12513" price_min="12513">
+    <price site="rozetka.com.ua">12513</price>
+  </product>
+</products>
