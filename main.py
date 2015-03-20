@@ -1,25 +1,13 @@
 # coding=utf-8
 
-import xml.etree.ElementTree as ET
-import re
 import sys
+import xml.etree.ElementTree as et
 from lxml import html, etree
 
+import rozetka
+import itbox
 
-class Site(object):
-    def __init__(self, url, name):
-        self.name = name
-        self.url = url
-
-
-class Product(object):
-    def __init__(self, name, site, price, id):
-        self.name = name
-        self.id = id
-        try:
-            self.sites[site] = price
-        except AttributeError:
-            self.sites = {site: price}
+from site_ import Site
 
 
 def main():
@@ -46,72 +34,12 @@ def levenstein(s1, s2):
     return n[-1]
 
 
-def find_count_pages_rozetka(link):
-    page = html.parse(link.url)
-    elem = page.getroot().find_class('m-pages-i-link no-visited')
-    if len(elem) > 0:
-        count = re.sub("^\s+|\n|\r|\s+$", '',
-                       elem[-1].text_content()).encode('raw-unicode-escape')
-        if count.isdigit():
-            return int(count)
-        else:
-            return 0
-    return 1
-
-
 def parse_link(link):
     list = []
     if link.name == "rozetka.com.ua":
-        for i in range(find_count_pages_rozetka(link)):
-            url = link.url[:-1] + ";%s%d/" % ("page=", i + 1)
-            print url
-            page = html.parse(url)
-            for i in page.getroot().find_class('g-i-list-right-part'):
-                name = i.find_class('g-i-list-title')
-                uah = i.find_class('g-i-list-price-uah')
-                if len(name) != 0 and len(uah) != 0:
-                    name_product = \
-                        re.sub(
-                            "^\s+|\n|Суперцена!!!|Суперцена!|\r|\s+$",
-                            '',
-                            name[0].text_content()
-                        ).encode('raw-unicode-escape')
-                    id_product = re.search("\(([^()]*)\)", name_product)
-                    if id_product is not None:
-                        id_product = id_product.group()
-                    else:
-                        id_product = None
-                    # print id_product
-                    list.append(Product(name_product,
-                                        link.name,
-                                        re.sub(
-                                            "\D",
-                                            '',
-                                            uah[0].text_content()
-                                        ).encode('raw-unicode-escape'),
-                                        id_product))
-                else:
-                    return list
+        list=rozetka.parse(link)
     elif link.name == "www.itbox.ua":
-        page = html.parse(link.url)
-        print link.url
-        for i in page.getroot().find_class('catline-item'):
-            name_product = i.find_class('inv')[0].text_content().\
-                encode('raw-unicode-escape')
-            id_product = re.search("\(([^()]*)\)", name_product)
-            if id_product is not None:
-                id_product = id_product.group()
-            else:
-                id_product = None
-            # print id_product
-            list.append(Product(name_product,
-                                link.name,
-                                re.sub(
-                                    "\D",
-                                    '',
-                                    i.find_class('pprice')[0].text_content()
-                                ).encode('raw-unicode-escape'),
-                                id_product))
+        list=itbox.parse(link)
     return list
 
 
@@ -183,12 +111,12 @@ def save_xml(fname, products_xml):
 
 
 def load_xml(fname):
-    links = ET.parse(fname)
+    links = et.parse(fname)
     urls = links.getroot()
-    list = []
+    lst = []
     for i in urls:
-        list.append(Site(i.text, i.attrib['site']))
-    return list
+        lst.append(Site(i.text, i.attrib['site']))
+    return lst
 
 
 if __name__ == "__main__":
