@@ -8,3 +8,9 @@ class Product(object):
             self.sites[site] = price
         except AttributeError:
             self.sites = {site: price}
+
+    @staticmethod
+    def print_products(products):
+        for i in products:
+            print i.name
+            print i.sites

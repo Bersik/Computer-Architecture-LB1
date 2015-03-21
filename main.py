@@ -1,46 +1,35 @@
 # coding=utf-8
 
 import sys
-import xml.etree.ElementTree as et
-from lxml import html, etree
+from lxml import etree
 
 import rozetka
 import itbox
+from levenstein import levenstein
+import file_work
+from product import Product
 
-from site_ import Site
-
+levenstein_min = 3
+path = "xml/"
 
 def main():
-    links = load_xml("input.xml")
+    """
+    Порівняння цін на електронну техніку
+    """
+    links = file_work.load_xml(path+"input.xml")
     products = parse_links(links)
-    print_products(products)
-    save_xml("result.xml", create_xml(products))
+    Product.print_products(products)
+    file_work.save_xml(path+"result.xml", create_xml(products))
     return 0
 
 
-def print_products(products):
-    for i in products:
-        print i.name
-        print i.sites
-
-
-def levenstein(s1, s2):
-    n = range(0, len(s1) + 1)
-    for y in xrange(1, len(s2) + 1):
-        l, n = n, [y]
-        for x in xrange(1, len(s1) + 1):
-            n.append(min(l[x] + 1, n[-1] + 1, l[x - 1] +
-                         ((s2[y - 1] != s1[x - 1]) and 1 or 0)))
-    return n[-1]
-
-
 def parse_link(link):
-    list = []
+    lst = dict()
     if link.name == "rozetka.com.ua":
-        list=rozetka.parse(link)
+        lst=rozetka.parse(link)
     elif link.name == "www.itbox.ua":
-        list=itbox.parse(link)
-    return list
+        lst=itbox.parse(link)
+    return lst
 
 
 def search_list_duplicates(lst, elem):
@@ -49,7 +38,7 @@ def search_list_duplicates(lst, elem):
             if elem.id == lst[i].id:
                 return i
         else:
-            if levenstein(elem.name, lst[i].name) < 3:
+            if levenstein(elem.name, lst[i].name) < levenstein_min:
                 return i
     return None
 
@@ -102,21 +91,6 @@ def create_xml(list):
         for j in i.sites:
             etree.SubElement(prod, "price", site=j).text = i.sites[j]
     return products
-
-
-def save_xml(fname, products_xml):
-    f = file(fname, "w")
-    f.write(etree.tostring(products_xml, pretty_print=True))
-    f.close()
-
-
-def load_xml(fname):
-    links = et.parse(fname)
-    urls = links.getroot()
-    lst = []
-    for i in urls:
-        lst.append(Site(i.text, i.attrib['site']))
-    return lst
 
 
 if __name__ == "__main__":

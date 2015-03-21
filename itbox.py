@@ -1,9 +1,10 @@
 # coding=utf-8
 
 import re
-from lxml import html, etree
+from lxml import html
 
 from product import Product
+
 
 def parse(link):
     lst=list()
