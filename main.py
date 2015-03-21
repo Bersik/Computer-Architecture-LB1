@@ -12,6 +12,7 @@ from product import Product
 levenstein_min = 3
 path = "xml/"
 
+
 def main():
     """
     Порівняння цін на електронну техніку
@@ -26,9 +27,9 @@ def main():
 def parse_link(link):
     lst = dict()
     if link.name == "rozetka.com.ua":
-        lst=rozetka.parse(link)
+        lst = rozetka.parse(link)
     elif link.name == "www.itbox.ua":
-        lst=itbox.parse(link)
+        lst = itbox.parse(link)
     return lst
 
 

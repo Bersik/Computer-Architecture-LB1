@@ -7,7 +7,7 @@ from product import Product
 
 
 def parse(link):
-    lst=list()
+    lst = list()
     page = html.parse(link.url)
     print link.url
     for i in page.getroot().find_class('catline-item'):
@@ -20,11 +20,11 @@ def parse(link):
             id_product = None
         # print id_product
         lst.append(Product(name_product,
-                            link.name,
-                            re.sub(
-                                "\D",
-                                '',
-                                i.find_class('pprice')[0].text_content()
-                            ).encode('raw-unicode-escape'),
-                            id_product))
+                           link.name,
+                           re.sub(
+                               "\D",
+                               '',
+                               i.find_class('pprice')[0].text_content()
+                           ).encode('raw-unicode-escape'),
+                           id_product))
     return lst

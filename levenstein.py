@@ -1,4 +1,3 @@
-
 def levenstein(s1, s2):
     n = range(0, len(s1) + 1)
     for y in xrange(1, len(s2) + 1):

@@ -1,5 +1,3 @@
-__author__ = 'admin1'
-
 class Product(object):
     def __init__(self, name, site, price, id):
         self.name = name

@@ -20,7 +20,7 @@ def find_count_pages_rozetka(link):
 
 
 def parse(link):
-    lst=list()
+    lst = list()
     for i in range(find_count_pages_rozetka(link)):
             url = link.url[:-1] + ";%s%d/" % ("page=", i + 1)
             print url
@@ -42,12 +42,12 @@ def parse(link):
                         id_product = None
                     # print id_product
                     lst.append(Product(name_product,
-                                        link.name,
-                                        re.sub(
-                                            "\D",
-                                            '',
-                                            uah[0].text_content()
-                                        ).encode('raw-unicode-escape'),
-                                        id_product))
+                                       link.name,
+                                       re.sub(
+                                           "\D",
+                                           '',
+                                           uah[0].text_content()
+                                       ).encode('raw-unicode-escape'),
+                                       id_product))
                 else:
                     return lst

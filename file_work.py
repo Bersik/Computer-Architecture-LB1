@@ -1,6 +1,7 @@
 from lxml import etree
 from site_ import Site
 
+
 def load_xml(fname):
     links = etree.parse(fname)
     urls = links.getroot()
@@ -9,6 +10,7 @@ def load_xml(fname):
         if i.attrib.get('site') is not None:
             lst.append(Site(i.text, i.attrib['site']))
     return lst
+
 
 def save_xml(fname, products_xml):
     f = file(fname, "w")
