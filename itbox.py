@@ -1,16 +1,15 @@
 # coding=utf-8
 
 import re
-from lxml import html
+from url_work import get_html
 
 from product import Product
 
-
 def parse(link):
     lst = list()
-    page = html.parse(link.url)
+    page = get_html(link.url)
     print link.url
-    for i in page.getroot().find_class('catline-item'):
+    for i in page.find_class('catline-item'):
         name_product = i.find_class('inv')[0].text_content().\
             encode('raw-unicode-escape')
         id_product = re.search("\(([^()]*)\)", name_product)
@@ -18,7 +17,6 @@ def parse(link):
             id_product = id_product.group()
         else:
             id_product = None
-        # print id_product
         lst.append(Product(name_product,
                            link.name,
                            re.sub(
