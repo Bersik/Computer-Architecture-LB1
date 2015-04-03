@@ -1,6 +1,7 @@
 from lxml import etree
 import sys
 
+
 from site_ import Site
 
 
@@ -20,8 +21,12 @@ def max_price(product):
     return max
 
 
-def create_xml(list,time,use_gevent):
-    products = etree.Element("products", count=str(len(list)),time=str(time),use_gevent=str(use_gevent))
+def create_xml(list, time, use_gevent):
+    products = etree.Element(
+        "products",
+        count=str(len(list)),
+        time=str(time),
+        use_gevent=str(use_gevent))
     for i in list:
         # print i.name+"  "+str(min_price(i))+"  "+str(max_price(i))
         prod = etree.SubElement(

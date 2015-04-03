@@ -1,8 +1,7 @@
-# coding=utf-8
-
 import re
 from url_work import get_html
 import gevent
+
 
 from product import Product
 from site_ import Site
@@ -12,7 +11,7 @@ def find_count_pages_rozetka(link):
     page = get_html(link.url)
     elem = page.find_class('paginator-catalog-l-i-active hidden')
     if len(elem) > 0:
-        count=elem[-1].text_content().encode('raw-unicode-escape')
+        count = elem[-1].text_content().encode('raw-unicode-escape')
         if count.isdigit():
             return int(count)
         else:
@@ -23,7 +22,10 @@ def find_count_pages_rozetka(link):
 def get_links_from_link(link):
     links = list()
     for i in range(find_count_pages_rozetka(link)):
-        links.append(Site(link.url[:-1] + ";%s%d/" % ("page=", i + 1),link.name))
+        links.append(Site(
+            link.url[:-1] + ";%s%d/" % ("page=", i + 1),
+            link.name)
+        )
     return links
 
 
@@ -33,14 +35,15 @@ def get_links(links):
         res += get_links_from_link(link)
     return res
 
+
 def get_links_gevent(links):
     threads = list()
     for link in links:
-        threads.append(gevent.spawn(get_links_from_link,link))
+        threads.append(gevent.spawn(get_links_from_link, link))
     gevent.joinall(threads)
     res = list()
     for t in threads:
-        res+=t.value
+        res += t.value
     return res
 
 
@@ -64,11 +67,11 @@ def parse(link):
             else:
                 id_product = None
             lst.append(Product(name_product,
-                                link.name,
-                                re.sub(
-                                    "\D",
-                                    '',
-                                    uah[0].text_content()
-                                ).encode('raw-unicode-escape'),
-                                id_product))
+                               link.name,
+                               re.sub(
+                                   "\D",
+                                   '',
+                                   uah[0].text_content()
+                               ).encode('raw-unicode-escape'),
+                               id_product))
     return lst

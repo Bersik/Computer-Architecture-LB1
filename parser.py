@@ -28,15 +28,15 @@ def get_full_links(links,use_gevent=False):
             links_rozetka.append(link)
         else:
             links_new.append(link)
-    if (use_gevent==False):
-        links_new+=rozetka.get_links(links_rozetka)
+    if not use_gevent:
+        links_new += rozetka.get_links(links_rozetka)
     else:
-        links_new+=rozetka.get_links_gevent(links_rozetka)
+        links_new += rozetka.get_links_gevent(links_rozetka)
     return links_new
 
 
 def parse_products(links):
-    products=list()
+    products = list()
     for link in links:
         items = parse_link(link)
         products = append_list_levenstein(products, items)
@@ -45,15 +45,15 @@ def parse_products(links):
 
 def parse_products_gevent(links):
     products_tmp = list()
-    end=False
+    end = False
 
     def parser(link):
         products_tmp.append(parse_link(link))
 
     def worker():
-        products=list()
-        while (not (end == True and products_tmp == [])):
-            if (products_tmp == []):
+        products = list()
+        while not (True == end and products_tmp == []):
+            if products_tmp == []:
                 gevent.sleep(0.2)
             else:
                 products = append_list_levenstein(products, products_tmp.pop())
@@ -64,7 +64,7 @@ def parse_products_gevent(links):
         threads.append(gevent.spawn(parser,link))
     worker = gevent.spawn(worker)
     gevent.joinall(threads)
-    end=True
+    end = True
 
     worker.join()
     products = worker.value
@@ -93,8 +93,8 @@ def search_list_duplicates(lst, elem):
 
 
 def append_list_levenstein(lst1, lst2):
-    if lst1 == []:
-        lst1=lst2
+    if not lst1:
+        lst1 = lst2
     else:
         for i in lst2:
             search = search_list_duplicates(lst1, i)
