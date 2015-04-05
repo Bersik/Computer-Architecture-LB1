@@ -1,26 +1,37 @@
-import rozetka
-import itbox
-import levenstein
+"""
+
+"""
 import gevent
 import gevent.monkey
+import Levenshtein
 
+import rozetka
+import itbox
+
+# Levenshtein distance default
 levenstein_min = 1
-levenstein = True
+
 
 def parse(links, conf):
+    """
+
+    :param links:
+    :param conf:
+    :return:
+    """
+    global levenstein_min
     levenstein_min = conf.get('levenstein_min')
-    levenstein = conf.get('levenstein')
-    if conf['use_gevent']==False:
+    if conf['use_gevent'] == False:
         links = get_full_links(links)
         products = parse_products(links)
     else:
-        gevent.monkey.patch_all()
-        links = get_full_links(links,True)
+        gevent.monkey.patch_socket()
+        links = get_full_links(links, True)
         products = parse_products_gevent(links)
     return products
 
 
-def get_full_links(links,use_gevent=False):
+def get_full_links(links, use_gevent=False):
     links_new = list()
     links_rozetka = list()
     for link in links:
@@ -52,7 +63,7 @@ def parse_products_gevent(links):
 
     def worker():
         products = list()
-        while not (True == end and products_tmp == []):
+        while not (end and products_tmp == []):
             if products_tmp == []:
                 gevent.sleep(0.2)
             else:
@@ -61,7 +72,7 @@ def parse_products_gevent(links):
 
     threads = list()
     for link in links:
-        threads.append(gevent.spawn(parser,link))
+        threads.append(gevent.spawn(parser, link))
     worker = gevent.spawn(worker)
     gevent.joinall(threads)
     end = True
@@ -81,14 +92,15 @@ def parse_link(link):
 
 
 def search_list_duplicates(lst, elem):
+    global lev
+    global lev_true
     for i in range(len(lst) - 1):
         if (elem.id is not None) and (lst[i].id is not None):
             if elem.id == lst[i].id:
                 return i
         else:
-            if levenstein==True:
-                if levenstein.levenstein(elem.name, lst[i].name) < levenstein_min:
-                    return i
+            if Levenshtein.distance(elem.name, lst[i].name) < levenstein_min:
+                return i
     return None
 
 

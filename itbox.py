@@ -1,11 +1,18 @@
-# coding=utf-8
-
+"""
+Work site itbox
+"""
 import re
-from url_work import get_html
 
+from url_work import get_html
 from product import Product
 
+
 def parse(link):
+    """
+    Parse link.
+    :param link: An object of class Site.  Link to the category of site itbox.
+    :return: list products
+    """
     lst = list()
     page = get_html(link.url)
     print link.url
