@@ -1,14 +1,16 @@
 import unittest
+from product import Product
 
 class TestProduct(unittest.TestCase):
     def test___init__(self):
-        # product = Product(name, site, price, id)
-        assert False # TODO: implement your test here
-
-    def test_print_products(self):
-        # product = Product(name, site, price, id)
-        # self.assertEqual(expected, product.print_products())
-        assert False # TODO: implement your test here
+        name="name"
+        site="site"
+        price="price"
+        id="id"
+        product = Product(name,site,price,id)
+        self.assertEquals(product.name,name)
+        self.assertEquals(product.id,id)
+        self.assertEquals(product.sites,{"site":"price"})
 
 if __name__ == '__main__':
     unittest.main()

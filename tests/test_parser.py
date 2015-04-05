@@ -15,5 +15,20 @@ class TestParseProductsGevent(unittest.TestCase):
         # self.assertEqual(expected, parse_products_gevent(links))
         assert False # TODO: implement your test here
 
+class TestParseLink(unittest.TestCase):
+    def test_parse_link(self):
+        # self.assertEqual(expected, parse_link(link))
+        assert False # TODO: implement your test here
+
+class TestSearchListDuplicates(unittest.TestCase):
+    def test_search_list_duplicates(self):
+        # self.assertEqual(expected, search_list_duplicates(lst, elem))
+        assert False # TODO: implement your test here
+
+class TestAppendListLevenstein(unittest.TestCase):
+    def test_append_list_levenstein(self):
+        # self.assertEqual(expected, append_list_levenstein(lst1, lst2))
+        assert False # TODO: implement your test here
+
 if __name__ == '__main__':
     unittest.main()

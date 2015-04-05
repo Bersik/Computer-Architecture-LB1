@@ -35,7 +35,7 @@ def get_full_links(links, use_gevent=False):
     links_new = list()
     links_rozetka = list()
     for link in links:
-        if link.name == "rozetka.com.ua":
+        if link.name == "rozetka":
             links_rozetka.append(link)
         else:
             links_new.append(link)
@@ -84,9 +84,9 @@ def parse_products_gevent(links):
 
 def parse_link(link):
     lst = list()
-    if link.name == "rozetka.com.ua":
+    if link.name == "rozetka":
         lst = rozetka.parse(link)
-    elif link.name == "www.itbox.ua":
+    elif link.name == "itbox":
         lst = itbox.parse(link)
     return lst
 
