@@ -20,14 +20,23 @@ class TestRozetka(unittest.TestCase):
         self.assertEqual(links[1], Site(self.file_test2[:-1]+";page=2/","rozetka"))
 
     def test_get_links_gevent(self):
-        pass
+        links = get_links_gevent([Site(self.file_test1,"rozetka"),Site(self.file_test2,"rozetka")])
+        self.assertEqual(len(links),59)
+        self.assertEqual(links[-1], Site(self.file_test2[:-1]+";page=2/","rozetka"))
+        self.assertEqual(links[-3], Site(self.file_test1[:-1]+";page=57/","rozetka"))
 
     def test_get_links(self):
-        # self.assertEqual(expected, get_links(links))
-        assert True # TODO: implement your test here
+        links = get_links([Site(self.file_test1,"rozetka"),Site(self.file_test2,"rozetka")])
+        self.assertEqual(len(links),59)
+        self.assertEqual(links[-1], Site(self.file_test2[:-1]+";page=2/","rozetka"))
+        self.assertEqual(links[-3], Site(self.file_test1[:-1]+";page=57/","rozetka"))
 
-    def parse(self):
-        assert True
+    def test_parse(self):
+        a = parse(
+                link=Site(self.file_test3,
+                          "rozetka"))[0]
+        b = Product("Dell Inspiron 3147 (I31P45NIW-25)","rozetka",'14760',"(I31P45NIW-25)")
+        self.assertEqual(a,b)
 
 if __name__ == '__main__':
     unittest.main()

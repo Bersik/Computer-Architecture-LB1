@@ -60,6 +60,7 @@ class TestXmlWork(unittest.TestCase):
   </product>
 </products>
 """)
+        tmp_file.close()
 
 if __name__ == '__main__':
     unittest.main()

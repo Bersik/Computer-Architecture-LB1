@@ -12,15 +12,20 @@ import xml_work
 def main():
     # read configuration file
     conf = config.read_config()
+
     # load input xml file
-    links = xml_work.load_xml(conf.get("path")+"input.xml")
+    links = xml_work.load_xml(conf.get("path") + "input.xml")
+
     # intersect time
     start = time.time()
+
     # main function
     products = parse(links, conf)
+
     # runtime
     total_time = time.time() - start
     print total_time
+
     # creates a xml file with a list of products and their prices
     xml_text = xml_work.create_xml(products, total_time, conf)
     f = file(conf.get("path") + "result.xml","w")

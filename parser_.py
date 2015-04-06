@@ -1,6 +1,3 @@
-"""
-
-"""
 import gevent
 import gevent.monkey
 import Levenshtein
@@ -9,15 +6,15 @@ import rozetka
 import itbox
 
 # Levenshtein distance default
-levenstein_min = 1
+levenstein_min = 3
 
 
 def parse(links, conf):
     """
-
-    :param links:
-    :param conf:
-    :return:
+    Load products from links
+    :param links: links from file input.xml
+    :param conf: configuration parameters
+    :return:list products
     """
     global levenstein_min
     levenstein_min = conf.get('levenstein_min')
@@ -32,6 +29,12 @@ def parse(links, conf):
 
 
 def get_full_links(links, use_gevent=False):
+    """
+    Makes direct links to all the page numbers.
+    :param links: links from file input.xml
+    :param use_gevent: use greenlet?
+    :return: list direct links
+    """
     links_new = list()
     links_rozetka = list()
     for link in links:
@@ -47,6 +50,11 @@ def get_full_links(links, use_gevent=False):
 
 
 def parse_products(links):
+    """
+    Loads all products with links
+    :param links: direct links
+    :return: all products derived from references
+    """
     products = list()
     for link in links:
         items = parse_link(link)
@@ -55,13 +63,21 @@ def parse_products(links):
 
 
 def parse_products_gevent(links):
+    """
+    Loads all products with links using gevent.
+    :param links: direct links
+    :return: all products derived from references
+    """
+    # list(list(),list(),...)
     products_tmp = list()
     end = False
 
     def parser(link):
+        # append loads products in list products_tmp
         products_tmp.append(parse_link(link))
 
     def worker():
+        # takes lists of goods from products_tmp
         products = list()
         while not (end and products_tmp == []):
             if products_tmp == []:
@@ -83,6 +99,11 @@ def parse_products_gevent(links):
 
 
 def parse_link(link):
+    """
+    Loads the goods from the reference
+    :param link: link to page
+    :return: product list
+    """
     lst = list()
     if link.name == "rozetka":
         lst = rozetka.parse(link)
@@ -92,8 +113,12 @@ def parse_link(link):
 
 
 def search_list_duplicates(lst, elem):
-    global lev
-    global lev_true
+    """
+    Search for duplicates elem product in the list lst
+    :param lst: current list of products
+    :param elem: product
+    :return: if an item already in the list, returns the number; otherwise - None
+    """
     for i in range(len(lst) - 1):
         if (elem.id is not None) and (lst[i].id is not None):
             if elem.id == lst[i].id:
@@ -105,6 +130,12 @@ def search_list_duplicates(lst, elem):
 
 
 def append_list_levenstein(lst1, lst2):
+    """
+    Append products in the total product list
+    :param lst1: total product list
+    :param lst2: product list
+    :return: total product list + product list
+    """
     if not lst1:
         lst1 = lst2
     else:

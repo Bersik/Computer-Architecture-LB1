@@ -15,6 +15,8 @@ def get_html(link):
         try:
             doc = urllib2.urlopen(link).read()
             return html.document_fromstring(doc)
+        except ValueError:
+            raise
         except Exception:
             print "Connection error " + str(count)
             count+=1
