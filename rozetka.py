@@ -15,7 +15,7 @@ def find_count_pages_rozetka(link):
         if count.isdigit():
             return int(count)
         else:
-            return 0
+            raise Exception("Oops! No page number!")
     return 1
 
 

@@ -23,7 +23,9 @@ def main():
     print total_time
     # creates a xml file with a list of products and their prices
     xml_text = xml_work.create_xml(products, total_time, conf)
-    xml_work.save_xml(conf.get("path") + "result.xml", xml_text)
+    f = file(conf.get("path") + "result.xml","w")
+    xml_work.save_xml(f, xml_text)
+    f.close()
 
 if __name__ == '__main__':
     main()

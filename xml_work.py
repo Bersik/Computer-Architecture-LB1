@@ -80,12 +80,10 @@ def load_xml(fname):
         return None
 
 
-def save_xml(fname, products_xml):
+def save_xml(f, products_xml):
     """
     Save xml structure products to file
-    :param fname: path to file
+    :param f: file
     :param products_xml: xml structure products
     """
-    f = file(fname, "w")
     f.write(etree.tostring(products_xml, pretty_print=True))
-    f.close()

@@ -1,9 +1,13 @@
 import unittest
+from url_work import *
+from urllib2 import URLError
 
 class TestGetHtml(unittest.TestCase):
     def test_get_html(self):
-        # self.assertEqual(expected, get_html(link))
-        assert False # TODO: implement your test here
+        with self.assertRaises(URLError):
+            get_html("https://weregfdgfdg.com/")
+        with self.assertRaises(ValueError):
+            get_html("werewr")
 
 if __name__ == '__main__':
     unittest.main()
