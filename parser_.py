@@ -119,7 +119,7 @@ def search_list_duplicates(lst, elem):
     :param elem: product
     :return: if an item already in the list, returns the number; otherwise - None
     """
-    for i in range(len(lst) - 1):
+    for i in range(len(lst)):
         if (elem.id is not None) and (lst[i].id is not None):
             if elem.id == lst[i].id:
                 return i
