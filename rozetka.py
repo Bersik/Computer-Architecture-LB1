@@ -13,7 +13,8 @@ from site_ import Site
 def find_count_pages_rozetka(link):
     """
     Reads the number of pages in the category
-    :param link: an object of class Site.  Link to the category of site rozetka.
+    :param link: an object of class Site.
+            Link to the category of site rozetka.
     :return: number of pages
     """
     page = get_html(link.url)
@@ -30,7 +31,8 @@ def find_count_pages_rozetka(link):
 def get_links_from_link(link):
     """
     Makes direct links to all the page numbers
-    :param link: an object of class Site.  Link to the category of site rozetka.
+    :param link: an object of class Site.
+            Link to the category of site rozetka.
     :return: references to all page in category
     """
     links = list()
@@ -73,7 +75,8 @@ def get_links_gevent(links):
 def parse(link):
     """
     Parse link.
-    :param link: An object of class Site.  Link to the category of site rezetka.
+    :param link: An object of class Site.
+            Link to the category of site rezetka.
     :return: list products
     """
     lst = list()

@@ -117,7 +117,8 @@ def search_list_duplicates(lst, elem):
     Search for duplicates elem product in the list lst
     :param lst: current list of products
     :param elem: product
-    :return: if an item already in the list, returns the number; otherwise - None
+    :return: if an item already in the list,
+            returns the number; otherwise - None
     """
     for i in range(len(lst)):
         if (elem.id is not None) and (lst[i].id is not None):

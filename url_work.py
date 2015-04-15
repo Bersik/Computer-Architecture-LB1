@@ -13,13 +13,13 @@ def get_html(link):
     count = 1
     while (True):
         try:
-            doc = urllib2.urlopen(link).read()
+            doc = urllib2.urlopen(link,timeout=20).read()
             return html.document_fromstring(doc)
         except ValueError:
             raise
         except Exception:
             print "Connection error " + str(count)
-            count+=1
-            if count > 10:
+            count += 1
+            if count > 5:
                 raise
             time.sleep(0.5)

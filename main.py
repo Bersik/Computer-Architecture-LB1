@@ -1,5 +1,5 @@
 """
-Software to compare the prices of electronic goods.
+Software for comparing the prices of electronic products.
 input: xmp file with links to product categories websites itbox and rozetka
 output:xmp file with a list of products with a range of prices
 """
@@ -8,6 +8,7 @@ import time
 import config
 from parser_ import parse
 import xml_work
+
 
 def main():
     # read configuration file
@@ -28,7 +29,7 @@ def main():
 
     # creates a xml file with a list of products and their prices
     xml_text = xml_work.create_xml(products, total_time, conf)
-    f = file(conf.get("path") + "result.xml","w")
+    f = file(conf.get("path") + "result.xml", "w")
     xml_work.save_xml(f, xml_text)
     f.close()
 

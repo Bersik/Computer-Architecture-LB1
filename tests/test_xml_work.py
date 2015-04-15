@@ -24,20 +24,20 @@ class TestXmlWork(unittest.TestCase):
     def test_create_xml(self):
         created_xml = self.create_tmp_xml()
         elem = created_xml[0]
-        self.assertEquals(created_xml.attrib.get('use_gevent'),str(True))
-        self.assertEquals(created_xml.attrib.get('use_gevent'),str(True))
-        self.assertEquals(created_xml.attrib.get('levenstein_min'),str(3))
-        self.assertEquals(created_xml.attrib.get('time'),str(1))
+        self.assertEquals(created_xml.attrib.get('use_gevent'), str(True))
+        self.assertEquals(created_xml.attrib.get('use_gevent'), str(True))
+        self.assertEquals(created_xml.attrib.get('levenstein_min'), str(3))
+        self.assertEquals(created_xml.attrib.get('time'), str(1))
 
-        self.assertEquals(elem.attrib.get('name'),"name")
-        self.assertEquals(elem.attrib.get('price_max'),"600")
-        self.assertEquals(elem.attrib.get('price_min'),"500")
-        self.assertEquals(elem.attrib.get('number'),"1")
+        self.assertEquals(elem.attrib.get('name'), "name")
+        self.assertEquals(elem.attrib.get('price_max'), "600")
+        self.assertEquals(elem.attrib.get('price_min'), "500")
+        self.assertEquals(elem.attrib.get('number'), "1")
 
-        self.assertEquals(elem[0].attrib.get('site'),"site2")
-        self.assertEquals(elem[0].text,"600")
-        self.assertEquals(elem[1].attrib.get('site'),"site1")
-        self.assertEquals(elem[1].text,"500")
+        self.assertEquals(elem[0].attrib.get('site'), "site2")
+        self.assertEquals(elem[0].text, "600")
+        self.assertEquals(elem[1].attrib.get('site'), "site1")
+        self.assertEquals(elem[1].text, "500")
 
     def test_load_xml(self):
         fname = os.path.dirname(os.path.abspath(__file__))+"/test_files/input_test1.xml"

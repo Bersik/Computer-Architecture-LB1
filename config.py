@@ -6,7 +6,7 @@ import ConfigParser
 
 def read_config(file="config.ini"):
     """
-    Reads the configuration file
+    Read the configuration file
     :param file: configuration file;
     :return: dictionary settings a kind of
         {"use_gevent":True,"levenstein_min":3,"path":"/xml"}
